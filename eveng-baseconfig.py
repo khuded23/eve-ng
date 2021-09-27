@@ -51,8 +51,5 @@ def telnet_config(device):
 		router.config_mode()
 		router.send_config_from_file('base-configs.txt')
 
-if __name__== "__main__":
-	for host in device_list:
-		telnet_config(host)
 
 

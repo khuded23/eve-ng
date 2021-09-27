@@ -1,0 +1,132 @@
+Router-1#show run
+Building configuration...
+
+Current configuration : 1253 bytes
+!
+! Last configuration change at 19:02:24 EET Tue Aug 31 2021
+!
+version 15.5
+service timestamps debug datetime msec
+service timestamps log datetime msec
+no service password-encryption
+!
+hostname Router-1
+!
+boot-start-marker
+boot-end-marker
+!
+!
+vrf definition Management
+ !
+ address-family ipv4
+ exit-address-family
+!
+enable secret 5 $1$rTjG$3glvDEnWm4AD1I0bxmHSh0
+!
+no aaa new-model
+!
+!
+!
+bsd-client server url https://cloudsso.cisco.com/as/token.oauth2
+clock timezone EET 2 0
+mmi polling-interval 60
+no mmi auto-configure
+no mmi pvc
+mmi snmp-timeout 180
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+
+
+!
+!
+!
+!
+no ip domain lookup
+ip domain name kiranhuded.local
+ip cef
+no ipv6 cef
+!
+multilink bundle-name authenticated
+!
+!
+!
+!
+!
+!
+!
+cts logging verbose
+!
+!
+username admin password 0 cisco
+!
+redundancy
+!
+!
+ip ssh version 2
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+interface Ethernet0/0
+ vrf forwarding Management
+ ip address dhcp
+!
+interface Ethernet0/1
+ ip add 172.16.15.1 255.255.255.252
+ no shutdown
+!
+interface Ethernet0/2
+ ip add 172.16.13.1 255.255.255.252
+ no shutdown
+!
+interface Ethernet0/3
+ no ip address
+ shutdown
+!
+ip forward-protocol nd
+!
+!
+no ip http server
+no ip http secure-server
+!
+!
+!
+!
+control-plane
+!
+!
+!
+!
+!
+!
+!
+!
+line con 0
+ logging synchronous
+line aux 0
+line vty 0 4
+ login local
+ transport input all
+!
+!
+end
